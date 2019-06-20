@@ -1,3 +1,11 @@
+# TODO
+
+1. Add validation during training
+2. Refactor train.py to parse argument from stdin. 
+3. Load custom data set, e.g. Person data.
+
+----------------------
+
 # YOLOv2 in PyTorch
 **NOTE: This project is no longer maintained and may not compatible with the newest pytorch (after 0.4.0).**
 
