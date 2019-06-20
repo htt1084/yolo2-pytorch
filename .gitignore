@@ -99,6 +99,7 @@ ENV/
 *.o
 models
 models/*
+data
 data/*
 
 VOCdevkit/*

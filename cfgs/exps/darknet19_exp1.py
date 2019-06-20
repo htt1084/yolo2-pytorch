@@ -1,7 +1,7 @@
 exp_name = 'darknet19_voc07trainval_exp3'
 
-pretrained_fname = 'darknet19.weights.npz'
-
+#pretrained_fname = 'darknet19.weights.npz'
+pretrained_fname = 'darknet19_voc07trainval_exp3_17.h5'
 start_step = 0
 lr_decay_epochs = {60, 90}
 lr_decay = 1./10

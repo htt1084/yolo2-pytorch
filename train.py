@@ -26,11 +26,11 @@ print('load data succ...')
 
 net = Darknet19()
 # net_utils.load_net(cfg.trained_model, net)
-# pretrained_model = os.path.join(cfg.train_output_dir,
-#     'darknet19_voc07trainval_exp1_63.h5')
-# pretrained_model = cfg.trained_model
-# net_utils.load_net(pretrained_model, net)
-net.load_from_npz(cfg.pretrained_model, num_conv=18)
+pretrained_model = os.path.join(cfg.train_output_dir,
+     'darknet19_voc07trainval_exp3_17.h5')
+#pretrained_model = cfg.trained_model
+net_utils.load_net(pretrained_model, net)
+#net.load_from_npz(cfg.pretrained_model, num_conv=18)
 net.cuda()
 net.train()
 print('load net succ...')
@@ -75,10 +75,10 @@ for step in range(start_epoch * imdb.batch_per_epoch,
 
     # backward
     loss = net.loss
-    bbox_loss += net.bbox_loss.data.cpu().numpy()[0]
-    iou_loss += net.iou_loss.data.cpu().numpy()[0]
-    cls_loss += net.cls_loss.data.cpu().numpy()[0]
-    train_loss += loss.data.cpu().numpy()[0]
+    bbox_loss += net.bbox_loss.data.cpu().numpy()
+    iou_loss += net.iou_loss.data.cpu().numpy()
+    cls_loss += net.cls_loss.data.cpu().numpy()
+    train_loss += loss.data.cpu().numpy()
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
