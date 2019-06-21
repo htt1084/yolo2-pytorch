@@ -10,6 +10,7 @@ import utils.network as net_utils
 from utils.timer import Timer
 import cfgs.config as cfg
 from random import randint
+from test import test_net
 
 try:
     from tensorboardX import SummaryWriter
@@ -27,7 +28,7 @@ print('load data succ...')
 net = Darknet19()
 # net_utils.load_net(cfg.trained_model, net)
 pretrained_model = os.path.join(cfg.train_output_dir,
-     'darknet19_voc07trainval_exp3_17.h5')
+     'darknet19_voc07trainval_exp3_51.h5')
 #pretrained_model = cfg.trained_model
 net_utils.load_net(pretrained_model, net)
 #net.load_from_npz(cfg.pretrained_model, num_conv=18)
@@ -40,7 +41,7 @@ start_epoch = 0
 lr = cfg.init_learning_rate
 optimizer = torch.optim.SGD(net.parameters(), lr=lr, momentum=cfg.momentum,
                             weight_decay=cfg.weight_decay)
-
+#optimizer = torch.optim.Adam(net.parameters(), lr)   # Very bad result, 1st try only
 # tensorboad
 use_tensorboard = cfg.use_tensorboard and SummaryWriter is not None
 # use_tensorboard = False
@@ -121,6 +122,8 @@ for step in range(start_epoch * imdb.batch_per_epoch,
         print("image_size {}".format(cfg.multi_scale_inp_size[size_index]))
 
     if step > 0 and (step % imdb.batch_per_epoch == 0):
+        #test_data = VOCDataset(cfg.imdb_test, cfg.DATA_DIR, cfg.batch_size, yolo_utils.preprocess_test, processes=1, shuffle=False, dst_size=cfg.multi_scale_inp_size)
+        #test_net(net, test_data, 300, 0.01, False)
         if imdb.epoch in cfg.lr_decay_epochs:
             lr *= cfg.lr_decay
             optimizer = torch.optim.SGD(net.parameters(), lr=lr,
